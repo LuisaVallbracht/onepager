@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>my semester project</title>
+    <title>Interactive Gradients</title>
     <style>
-      * {
+        * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
@@ -16,7 +16,6 @@
             flex-direction: column;
             align-items: center;
             background-color: black;
-            
         }
         h1 {
             color: white;
@@ -24,65 +23,115 @@
         }
         .container {
             display: flex;
-            height: calc(100vh - 60px); /* Gesamte Höhe minus Platz für die Überschrift */
+            height: calc(100vh - 60px);
             width: 100vw;
             padding: 20px;
-            gap: 20px;
+            gap: 20px; /*hier Problem fast gelöst*/
         }
         /* Linke Spalte */
         .left-column {
             display: flex;
             flex-direction: column;
             gap: 20px;
-            width: 30%; /* 30% des Bildschirms für linke Spalte */
+            width: 30%;
         }
         .left-box {
-            background-color: #4CAF50;
             width: 100%;
-            flex: 1; /* Damit beide Boxen gleich viel Platz einnehmen */
-            color: white;
+            flex: 1;
             display: flex;
             align-items: center;
             justify-content: center;
             border-radius: 8px;
+            color: white;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
+        /* Linearer Gradient */
+        .left-box.linear-gradient {
+            background: linear-gradient(135deg, #e8cdd8, #e96f83, #d50f4e);
+        }
+        /* Radialer Gradient */
+        .left-box.radial-gradient {
+            background: radial-gradient(circle at center, #64acdc, #29085f);
+        }
+
+        /* Hover-Effekt für alle Boxen */
+        .left-box:hover {
+            transform: scale(1.05); /* Vergrößert die Box */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Fügt einen Schatten hinzu */
+        }
+
         /* Rechte Spalte */
         .right-column {
             display: flex;
             flex-direction: column;
             gap: 20px;
-            width: 70%; /* 70% des Bildschirms für rechte Spalte */
+            width: 70%;
         }
         .right-box {
             background-color: #2196F3;
             width: 100%;
-            flex: 1; /* Teilt den Platz gleichmäßig zwischen den drei Boxen auf */
+            flex: 1;
             color: white;
             display: flex;
             align-items: center;
             justify-content: center;
             border-radius: 8px;
-        }  
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        /* Hover-Effekt für Rechte Spalte */
+        .right-box:hover {
+            transform: scale(1.015); /* Vergrößert die Box */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Fügt einen Schatten hinzu */
+        }
+
     </style>
 </head>
 <body>
-    <h1>colorgradients</h1>
+    <h1>Interactive Gradients</h1>
 
     <div class="container">
-        <!-- Linke Spalte mit zwei quadratischen Boxen -->
+        <!-- Linke Spalte -->
         <div class="left-column">
-            <div class="left-box">linear gradient</div>
-            <div class="left-box">radial gradient</div>
+            <!-- Linearer Gradient -->
+            <div class="left-box linear-gradient" id="linear-gradient">
+                <span>Linear Gradient</span>
+            </div>
+            <!-- Radialer Gradient -->
+            <div class="left-box radial-gradient" id="radial-gradient">
+                <span>Radial Gradient</span>
+            </div>
         </div>
-        
-        <!-- Rechte Spalte mit drei rechteckigen Boxen -->
+
+        <!-- Rechte Spalte -->
         <div class="right-column">
-            <div class="right-box">transfer color</div>
-            <div class="right-box">aurora gradient</div>
-            <div class="right-box">try yourself</div>
+            <div class="right-box">Transfer Color</div>
+            <div class="right-box">Aurora Gradient</div>
+            <div class="right-box">Try Yourself</div>
         </div>
     </div>
-<script>
-</script>
+
+    <script>
+        // LINEAR GRADIENT: Gradient ändert die Richtung basierend auf Mausposition
+        const linearGradientBox = document.getElementById('linear-gradient');
+
+        linearGradientBox.addEventListener('mousemove', (event) => {
+            const { left, top, width, height } = linearGradientBox.getBoundingClientRect();
+            const x = event.clientX - left;
+            const y = event.clientY - top;
+
+            const angle = Math.atan2(y - height / 2, x - width / 2) * (180 / Math.PI) + 180;
+
+            linearGradientBox.style.background = `linear-gradient(${angle}deg, #e8cdd8, #e96f83, #d50f4e)`;
+        });
+
+        linearGradientBox.addEventListener('mouseleave', () => {
+            linearGradientBox.style.background = 'linear-gradient(135deg, #e8cdd8, #e96f83, #d50f4e)';
+        });
+    </script>
 </body>
 </html>
