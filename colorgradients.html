@@ -76,6 +76,7 @@
             justify-content: center;
             text-align: center;
             padding: 10px;
+            font-size: 3vw;
         }
         .flipped {
             transform: rotateY(180deg);
@@ -301,6 +302,23 @@ radialGradientBox.addEventListener('mouseleave', () => {
     // Rückkehr zum Standard-Hintergrund, wenn die Maus die Box verlässt
     radialGradientBox.querySelector('.front').style.background = 'radial-gradient(circle at center, #64acdc, #29085f)';
 });
+
+// Funktion, die die Schriftgröße der Rückseite anpasst
+function adjustFontSize() {
+    const allBackElements = document.querySelectorAll('.back');
+    allBackElements.forEach((backElement) => {
+        const boxWidth = backElement.parentElement.offsetWidth; // Ermittelt die Breite der Box
+        const fontSize = Math.max(10, Math.min(20, boxWidth * 0.05)); // Berechne die Schriftgröße, zwischen 10px und 16px
+        backElement.style.fontSize = `${fontSize}px`; // Setze die neue Schriftgröße
+    });
+}
+
+// Event Listener für die Fenstergrößenänderung
+window.addEventListener('resize', adjustFontSize);
+
+// Initiale Anpassung der Schriftgröße beim Laden der Seite
+adjustFontSize();
+
 
     </script>
 
