@@ -3,39 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <title>Colorgradients</title>
+
+
     <style>
+/* CSS-Styling */
         * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
+            box-sizing: border-box; 
+            margin: 0; /* entfernt STandardabstände* */
+            padding: 0; /* enfernt Standardabstände */
+            
         }
         html, body {
-            height: 100%;
+            height: 100vh; /* gesamte Höhe des Bildschirms */
+            overflow: hidden; /*verhindet scrollen */
             font-family: "Arial Rounded MT Bold", sans-serif;
             font-size: 20px;
             letter-spacing: 2px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background: linear-gradient(79deg, #8ce15f, #396010);
+            display: flex; /* zentrietr den Inhalt vertikal*/
+            flex-direction: column; /* zentrietr den Inhalt vertikal*/
+            align-items: center; /* zentrietr den Inhalt vertikal*/
+            background: linear-gradient(79deg, #8ce15f, #396010); /* diagonaler Farbverlauf als Hintergrund */
         }
+
+/* Header */
+
         h1 {
             color: white;
             margin-top: 10px;
             font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
             letter-spacing: 5px;
             font-size: 60px;
-            text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.7); /* Schatten hinzufügen */
-            cursor: default;
+            text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.7); 
+            cursor: default; /* normaler Mauszeiger wenn NICHT über Boxen */
         }
 
+/* Main */
+    /* Boxen allgemein */
         .container {
-            display: flex;
-            height: calc(100vh - 60px);
+            height: 100vh; /* Boxen nicht größer als Bildschirm */
+            display: flex; /* Boxen sind nebeneinander angeordnet */
+            height: calc(100vh - 60px); /* Höhe auf die volle Bildschirmgröße minus 60px */
             width: 100vw;
             padding: 20px;
-            gap: 20px;
+            padding-bottom: 40px; 
+            gap: 20px; /* Abstand zwischen Boxen*/
         }
+
+    /* Linke Boxen */
         .left-column {
             display: flex;
             flex-direction: column;
@@ -46,17 +60,69 @@
             width: 100%;
             flex: 1;
             position: relative;
-            border-radius: 8px;
-            transform-style: preserve-3d;
-            transition: transform 0.8s;
-            cursor: pointer;
+            border-radius: 8px; /*abgerundete ecken */
+            transform-style: preserve-3d; /* für den flip Effekt (3D Transformation) */
+            transition: transform 0.8s; /* Animation beim drehen */
+            cursor: pointer; /* Cursor ändert sich wenn über Box, damit user sieht "hier kann ich klicken" */
         }
+
+        .left-box.linear-gradient .front {
+            background: linear-gradient(135deg, #e8cdd8, #d50f4e);
+        }
+
+        .left-box.radial-gradient .front {
+            background: radial-gradient(circle at center, #64acdc, #29085f);
+        }
+
+    /* Styling für den Color Picker */
+        .color-picker-container {
+         margin-top: 1px;
+         margin-bottom: 20px;
+         display: flex;
+         gap: 20px; /* Abstand zwischen den Pickern */
+         align-items: center; /* Vertikal zentrieren */
+        }
+
+        .color-picker-container label {
+        font-size: 12px;
+        color: white;
+        margin-right: 1px; /* Abstand zwischen Label und Picker */
+        }
+
+        .color-picker-container input {
+        width: 70px;
+        height: 25px;
+        }
+
+    /* rechte Boxen */
+        .right-column {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 70%;
+        }
+
+        .right-box.aurora-gradient .front {
+        background-size: 100% 100%;
+        }
+
+    /* Farbverlauf für die "Transfer Color" Box*/
+        .right-box:nth-child(1) .front {
+            background: linear-gradient(to right, #f0d983, #ffaa0d, #d5440f); /* Gradient von links nach rechts */
+        }
+
+     /* Hover-Effekt für "Transfer Color" Box */
+        .right-box:nth-child(1):hover .front {
+            background: linear-gradient(to right, #f0d983, #ffaa0d, #d5440f);
+        }
+
+    /* Vorder- und Rückseite für Boxen */
         .left-box .front, .left-box .back, 
         .right-box .front, .right-box .back {
-            position: absolute;
+            position: absolute; /* front und back Elemente überlappen sich */
             width: 100%;
             height: 100%;
-            backface-visibility: hidden;
+            backface-visibility: hidden; /* Rückseite wird versteckt wenn nicht sichbat */
             border-radius: 8px;
         }
         .front {
@@ -79,74 +145,32 @@
             font-size: 3vw;
         }
         .flipped {
-            transform: rotateY(180deg);
+            transform: rotateY(180deg); /* Flip beim Klicken der Boxen */
         }
-
-        .left-box.linear-gradient .front {
-            background: linear-gradient(135deg, #e8cdd8, #d50f4e);
-        }
-        .left-box.radial-gradient .front {
-            background: radial-gradient(circle at center, #64acdc, #29085f);
-        }
-        .right-box.aurora-gradient .front {
-        background-size: 100% 100%;
-        }
-
-        /* Füge einen Farbverlauf für die "Transfer Color" Box hinzu */
-        .right-box:nth-child(1) .front {
-            background: linear-gradient(to right, #f0d983, #ffaa0d, #d5440f); /* Gradient von links nach rechts */
-        }
-
-        /* Hover-Effekt für "Transfer Color" Box */
-        .right-box:nth-child(1):hover .front {
-            background: linear-gradient(to right, #f0d983, #ffaa0d, #d5440f);
-        }
-
-        .right-column {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            width: 70%;
-        }
-
-        /* Styling für den Color Picker */
-.color-picker-container {
-    margin-top: 1px;
-    margin-bottom: 20px;
-    display: flex;
-    gap: 20px; /* Abstand zwischen den Pickern */
-    align-items: center; /* Vertikal zentrieren */
-}
-
-.color-picker-container label {
-    font-size: 12px;
-    color: white;
-    margin-right: 1px; /* Etwas Abstand zwischen Label und Picker */
-}
-
-.color-picker-container input {
-    width: 70px;
-    height: 25px; /* Höher für bessere Sichtbarkeit */
-}
 
     </style>
 </head>
+
+
 <body>
+    <header>
+        <h1>COLOR GRADIENTS</h1>
+    </header>
 
-    <h1>COLOR GRADIENTS</h1>
-
+    <main>
+    <!-- Linke obere Box - linear gradient -->
     <div class="container">
         <div class="left-column">
-            <div class="left-box linear-gradient" id="gradient-box">
-                <div class="front">
+            <div class="left-box linear-gradient" id="gradient-box"> <!-- Linearer farbverlauf und enabled JavaScript-->
+                <div class="front"> <!-- Vorderseite der Box -->
                     <span>Linear</span>
                 </div>
-                <div class="back">
+                <div class="back"> <!-- Rückseite der Box -->
                     <p>A linear gradient is a color transition that progresses in a straight line from one color to another (or multiple colors). It can be horizontal, vertical, diagonal, or set at any angle. This technique is widely used in UI design for backgrounds, buttons, and text effects, adding depth and visual appeal without relying on images.</p>
                 </div>
             </div>
 
-            <!-- Color Picker für die obere linke Box zwischen den beiden Boxen -->
+    <!-- Color Picker für die obere linke Box -->
             <div class="color-picker-container">
                 <label for="color1">Pick color 1</label>
                 <input type="color" id="color1" name="color1" value="#e8cdd8">
@@ -155,6 +179,7 @@
                 <input type="color" id="color2" name="color2" value="#e96f83">
             </div>
 
+    <!-- Linke untere Box - radial gradient - Anmerkungen wie bei linear gradient -->
             <div class="left-box radial-gradient" id="radial-gradient-box">
                 <div class="front">
                     <span>Radial</span>
@@ -165,7 +190,7 @@
                 </div>
             </div>
         </div>
-
+        <!--rechte obere Box - Transfer color - Anmerk. gleich -->
         <div class="right-column">
             <div class="right-box" >
                 <div class="front">
@@ -176,6 +201,8 @@
                     </p>
                 </div>
             </div>
+
+        <!--linke untere Box - auora gradient - Anmerk. gleich -->
             <div class="right-box aurora-gradient" >
                 <div class="front">
                     <span>Aurora</span>
@@ -186,8 +213,14 @@
             </div>
         </div>
     </div>
+</main>
+
 
     <script>
+    // JavaScript
+
+    // Linke obere Box - Linear Gradient
+
         // Funktion für den "Linear Gradient"-Hover-Effekt
         const linearGradientBox = document.getElementById('gradient-box');
         let userColors = {
@@ -196,29 +229,31 @@
             
         };
 
-        // Setzt den Benutzerfarbgradienten auf der Box
+        // gradient bleibt nach Veränderung durch user beibehalten/aktualisiert
         function updateGradient() {
             const { color1, color2 } = userColors;
             linearGradientBox.querySelector('.front').style.background = `linear-gradient(135deg, ${color1}, ${color2} )`;
         }
 
+        // ändert den Winkel des Farbverlaufs basierend auf Mausposition
         linearGradientBox.addEventListener('mousemove', (event) => {
             const { width, height, left, top } = linearGradientBox.getBoundingClientRect();
             const mouseX = event.clientX - left;
             const mouseY = event.clientY - top;
 
-            // Berechne den Winkel basierend auf der Mausposition
+        // Berechnet den Winkel basierend auf der Mausposition
             const angle = Math.atan2(mouseY - height / 2, mouseX - width / 2) * (180 / Math.PI) + 180;
 
-            // Setze den neuen linear-gradient-Hintergrund unter Verwendung der benutzerdefinierten Farben
+        // Setzt den neuen linear-gradient-Hintergrund unter Verwendung der benutzerdefinierten Farben
             linearGradientBox.querySelector('.front').style.background = `linear-gradient(${angle}deg, ${userColors.color1}, ${userColors.color2} )`;
         });
 
+        // Behalte die benutzerdefinierten Farben bei, wenn die Maus den Bereich verlässt
         linearGradientBox.addEventListener('mouseleave', () => {
-            updateGradient(); // Behalte die benutzerdefinierten Farben bei, wenn die Maus den Bereich verlässt
+            updateGradient(); 
         });
 
-        // Farben für die obere linke Box ändern
+        // Farben für den picker
         const color1Input = document.getElementById('color1');
         const color2Input = document.getElementById('color2');
 
@@ -231,7 +266,49 @@
             userColors.color2 = e.target.value;
             updateGradient();
         });
+
+    // linke untere Box - radial gradient
+
+         // Radial Gradient Box Mousemove Effekt
+         const radialGradientBox = document.getElementById('radial-gradient-box');
+
+        radialGradientBox.addEventListener('mousemove', (event) => {
+        const { width, height, left, top } = radialGradientBox.getBoundingClientRect();
+        const mouseX = event.clientX - left;
+        const mouseY = event.clientY - top;
+
+        // Berechne den Prozentsatz der Mausposition innerhalb der Box
+        const percentageX = (mouseX / width) * 100;
+        const percentageY = (mouseY / height) * 100;
+
+        // Setze den radialen Verlauf basierend auf der Mausposition
+        radialGradientBox.querySelector('.front').style.background = `radial-gradient(circle at ${percentageX}% ${percentageY}%, #64acdc, #29085f)`;
+        });
+
+        radialGradientBox.addEventListener('mouseleave', () => {
+
+        // Rückkehr zum Standard-Hintergrund, wenn die Maus die Box verlässt
+        radialGradientBox.querySelector('.front').style.background = 'radial-gradient(circle at center, #64acdc, #29085f)';
+        });
+
+        // Funktion, die die Schriftgröße der Rückseite anpasst, im Verhätlnis zur Größe der Box durch useranpassung
+        function adjustFontSize() {
+        const allBackElements = document.querySelectorAll('.back');
+        allBackElements.forEach((backElement) => {
+        const boxWidth = backElement.parentElement.offsetWidth; // Ermittelt die Breite der Box
+        const fontSize = Math.max(10, Math.min(20, boxWidth * 0.05)); // Berechne die Schriftgröße, zwischen 10px und 20px
+        backElement.style.fontSize = `${fontSize}px`; // Setzt die neue Schriftgröße
+        });
+        }
+
+        // Event Listener für die Fenstergrößenänderung
+        window.addEventListener('resize', adjustFontSize);
+
+        // Initiale Anpassung der Schriftgröße beim Laden der Seite
+        adjustFontSize();
+
         
+    // rechte obere Box - transfer color
 
         // Hover-Effekt für "Transfer Color"
         const transferColorBox = document.querySelector('.right-box:nth-child(1)');
@@ -239,10 +316,10 @@
             const { width, height, left, top } = transferColorBox.getBoundingClientRect();
             const mouseX = event.clientX - left;
 
-            // Berechne die Position der mittleren Farbe basierend auf der Mausposition
+        // Berechnet die Position der mittleren Farbe basierend auf der Mausposition
             const percentage = (mouseX / width) * 50;
 
-            // Setze den neuen Verlauf mit verschobener Mitte
+        // Setzt den neuen Verlauf mit verschobener Mitte
             transferColorBox.querySelector('.front').style.background = `linear-gradient(to right, #f0d983 ${percentage}%, #ffaa0d, #d5440f)`;
         });
 
@@ -250,21 +327,16 @@
             transferColorBox.querySelector('.front').style.background = 'linear-gradient(to right, #f0d983, #ffaa0d, #d5440f)';
         });
 
-        // Box klicken, um den Flip-Effekt auszulösen
-        const allBoxes = document.querySelectorAll('.left-box, .right-box');
-        allBoxes.forEach((box) => {
-            box.addEventListener('click', () => {
-                box.classList.toggle('flipped');
-            });
-        });
         
-    // Funktion, um eine zufällige Farbe zu generieren
-    function getRandomColor() {
-        return `#${Math.floor(Math.random() * 16777215).toString(16)}`;
-    }
+    // rechte untere Box - aurora gradient
 
-    // Funktion, um den Aurora-Gradienten zu aktualisieren
-    function updateAuroraGradient() {
+        // Funktion, um eine zufällige Farbe zu generieren
+        function getRandomColor() {
+        return `#${Math.floor(Math.random() * 16777215).toString(16)}`;
+        }
+
+        // Funktion, um den Aurora-Gradienten zu aktualisieren
+        function updateAuroraGradient() {
         const auroraBox = document.querySelector('.right-box.aurora-gradient .front');
         const color1 = getRandomColor();
         const color2 = getRandomColor();
@@ -274,53 +346,24 @@
         // Sanfter Farbwechsel mit Transition
         auroraBox.style.transition = "background 3s ease-in-out";
         auroraBox.style.background = `linear-gradient(to top, ${color1}, ${color2}, ${color3}, ${color4})`;
-    }
+        }
 
-    // Setzt einen Timer, um alle 10 Sekunden die Farben zu ändern
-    setInterval(updateAuroraGradient, 5000);
+        // Setzt einen Timer, um alle 5 Sekunden die Farben zu ändern
+        setInterval(updateAuroraGradient, 5000);
 
-    // Starteffekt beim Laden der Seite
-    updateAuroraGradient();
+        // Starteffekt beim Laden der Seite
+        updateAuroraGradient();
 
-    // Radial Gradient Box Mousemove Effekt
-const radialGradientBox = document.getElementById('radial-gradient-box');
 
-radialGradientBox.addEventListener('mousemove', (event) => {
-    const { width, height, left, top } = radialGradientBox.getBoundingClientRect();
-    const mouseX = event.clientX - left;
-    const mouseY = event.clientY - top;
-
-    // Berechne den Prozentsatz der Mausposition innerhalb der Box
-    const percentageX = (mouseX / width) * 100;
-    const percentageY = (mouseY / height) * 100;
-
-    // Setze den radialen Verlauf basierend auf der Mausposition
-    radialGradientBox.querySelector('.front').style.background = `radial-gradient(circle at ${percentageX}% ${percentageY}%, #64acdc, #29085f)`;
-});
-
-radialGradientBox.addEventListener('mouseleave', () => {
-    // Rückkehr zum Standard-Hintergrund, wenn die Maus die Box verlässt
-    radialGradientBox.querySelector('.front').style.background = 'radial-gradient(circle at center, #64acdc, #29085f)';
-});
-
-// Funktion, die die Schriftgröße der Rückseite anpasst
-function adjustFontSize() {
-    const allBackElements = document.querySelectorAll('.back');
-    allBackElements.forEach((backElement) => {
-        const boxWidth = backElement.parentElement.offsetWidth; // Ermittelt die Breite der Box
-        const fontSize = Math.max(10, Math.min(20, boxWidth * 0.05)); // Berechne die Schriftgröße, zwischen 10px und 16px
-        backElement.style.fontSize = `${fontSize}px`; // Setze die neue Schriftgröße
-    });
-}
-
-// Event Listener für die Fenstergrößenänderung
-window.addEventListener('resize', adjustFontSize);
-
-// Initiale Anpassung der Schriftgröße beim Laden der Seite
-adjustFontSize();
-
+    // Box klicken, um den Flip-Effekt auszulösen
+        const allBoxes = document.querySelectorAll('.left-box, .right-box');
+        allBoxes.forEach((box) => {
+            box.addEventListener('click', () => {
+                box.classList.toggle('flipped');
+            });
+        });
 
     </script>
-
 </body>
+
 </html>
