@@ -2,3 +2,5 @@ This is not my best work but I hope everyone appreciates my efforts. I've tried 
 I hope you still enjoy my little website and maybe learn something new about color gradients, even though I highly doubt that.
 I look forward to learning more about coding during my upcoming studies, because I actually like doing it!
 Thank you!!
+
+„This page was created by Luisa Vallbracht during the winterterm 2024/25 in the Interactive Information course of the Interface Design program at the University of Applied Sciences Potsdam.“
